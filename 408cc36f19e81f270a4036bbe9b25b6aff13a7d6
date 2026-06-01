@@ -1,0 +1,17 @@
+.dockerignore
+  h_b47deeb48f2630 1-27
+.github/workflows/docker-publish.yml
+  h_b47deeb48f2630 1-57
+Dockerfile
+  h_b47deeb48f2630 8,17,28-36
+---
+{
+  "schema_version": "zax-attestation/1.1.0",
+  "base_commit_sha": "408cc36f19e81f270a4036bbe9b25b6aff13a7d6",
+  "prompts": {},
+  "humans": {
+    "h_b47deeb48f2630": {
+      "author": "sj@neulbit.com"
+    }
+  }
+}
