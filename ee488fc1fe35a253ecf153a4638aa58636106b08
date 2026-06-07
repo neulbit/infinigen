@@ -1,0 +1,13 @@
+.dockerignore
+  h_b47deeb48f2630 1-27
+---
+{
+  "schema_version": "zax-attestation/1.1.0",
+  "base_commit_sha": "ee488fc1fe35a253ecf153a4638aa58636106b08",
+  "prompts": {},
+  "humans": {
+    "h_b47deeb48f2630": {
+      "author": "sj@neulbit.com"
+    }
+  }
+}
