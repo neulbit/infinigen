@@ -5,6 +5,38 @@
 
 # [Infinigen: Infinite Photorealistic Worlds Using Procedural Generation](https://infinigen.org)
 
+## SIREM Integration Notes
+
+SIREM uses this subsystem as the external scene-generation boundary.
+
+## Purpose in SIREM
+
+- Generate indoor scenes and exported assets that feed the portable control plane
+- Keep scene synthesis code outside `src/`
+- Preserve the portable artifact contract through repository-local wrappers and scripts
+
+## SIREM-Owned Files
+
+- `scripts/`
+- `infinigen_examples/`
+- `subsystems/infinigen/README.md`
+
+## Entry Points
+
+- Use the local scripts in `scripts/` and the example generators in `infinigen_examples/`
+- Keep the portable CLI contract in `src/` as the source of truth for downstream stages
+
+## Artifact Contract
+
+- Inputs: scene configuration, asset generation parameters, optional cached assets
+- Outputs: exported room/scene assets and trajectories used by the portable pipeline
+- Validation: run the portable CLI `scene-gen` and `validate` stages after export
+
+## Update Notes
+
+- Pin any local changes against the upstream Infinigen version in use.
+- Recheck export paths whenever the portable scene schema changes.
+
 [**Getting Started**](#getting-started)
 | [**Website**](https://infinigen.org/)
 | [**Intro Video**](https://www.youtube.com/watch?v=6tgspeI-GHY)
@@ -227,6 +259,10 @@ Please post this repository's Github Issues page for help. Please run your comma
 - What were the output logs of the command you ran? 
     - If using `manage_jobs`, look in `outputs/MYJOB/MYSEED/logs/` to find the right one.
     - What was the exact python error and stacktrace, if applicable?
+
+## SIREM Boundary Summary
+
+For this workspace, treat Infinigen as an external subsystem. Keep portable orchestration, manifests, and validation in `src/`, and use Infinigen only for scene generation and export.
 
 ### Acknowledgements
 
