@@ -1,4 +1,4 @@
-ARG APP_IMAGE=continuumio/miniconda3
+ARG APP_IMAGE=continuumio/miniconda3:24.7.1-0
 FROM ${APP_IMAGE}
 ARG APP_IMAGE
 ENV PATH="/root/miniconda3/bin:${PATH}"
