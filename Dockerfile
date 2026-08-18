@@ -1,7 +1,7 @@
 ARG APP_IMAGE=continuumio/miniconda3:24.7.1-0
 FROM ${APP_IMAGE}
 ARG APP_IMAGE
-ENV PATH="/root/miniconda3/envs/infinigen/bin:/root/miniconda3/bin:${PATH}"
+ENV PATH="/opt/conda/envs/infinigen/bin:/opt/conda/bin:/root/miniconda3/envs/infinigen/bin:/root/miniconda3/bin:${PATH}"
 RUN if [ "$APP_IMAGE" = "nvidia/cuda:12.0.0-devel-ubuntu22.04" ]; then \
     echo "Using CUDA image" && \
     apt-get update && \
@@ -17,6 +17,8 @@ else \
     apt-get install -yq cmake g++ libgles2-mesa-dev libglew-dev libglfw3-dev libglm-dev libxi6 sudo unzip vim zlib1g-dev && \
     apt-get install -y libxkbcommon-x11-0; \
 fi
+
+RUN pip install --no-cache-dir google-cloud-storage pyyaml || true
 
 RUN mkdir -p /opt/infinigen
 WORKDIR /opt/infinigen
@@ -34,8 +36,10 @@ RUN conda init bash && \
         "matplotlib" \
         "tqdm" \
         "networkx" \
-        "pyyaml" && \
-    pip install -e ".[dev]"
+        "pyyaml" \
+        "google-cloud-storage" && \
+    pip install -e ".[dev]" && \
+    pip install google-cloud-storage pyyaml
 
 WORKDIR /workspace
 COPY src ./src
