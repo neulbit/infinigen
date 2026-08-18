@@ -1,7 +1,7 @@
 ARG APP_IMAGE=continuumio/miniconda3:24.7.1-0
 FROM ${APP_IMAGE}
 ARG APP_IMAGE
-ENV PATH="/root/miniconda3/bin:${PATH}"
+ENV PATH="/root/miniconda3/envs/infinigen/bin:/root/miniconda3/bin:${PATH}"
 RUN if [ "$APP_IMAGE" = "nvidia/cuda:12.0.0-devel-ubuntu22.04" ]; then \
     echo "Using CUDA image" && \
     apt-get update && \
@@ -18,9 +18,9 @@ else \
     apt-get install -y libxkbcommon-x11-0; \
 fi
 
-RUN mkdir /opt/infinigen
+RUN mkdir -p /opt/infinigen
 WORKDIR /opt/infinigen
-COPY . .
+COPY subsystems/infinigen .
 RUN conda init bash && \
     . ~/.bashrc && \
     conda create --name infinigen python=3.11 -y && \
@@ -33,5 +33,10 @@ RUN conda init bash && \
         "pandas" \
         "matplotlib" \
         "tqdm" \
-        "networkx" && \
+        "networkx" \
+        "pyyaml" && \
     pip install -e ".[dev]"
+
+WORKDIR /workspace
+COPY src ./src
+COPY subsystems ./subsystems
