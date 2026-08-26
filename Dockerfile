@@ -18,7 +18,7 @@ else \
     apt-get install -y libxkbcommon-x11-0; \
 fi
 
-RUN pip install --no-cache-dir google-cloud-storage pyyaml || true
+RUN pip install --no-cache-dir "numpy<2" "scipy" "pyyaml" "google-cloud-storage" "h5py" || true
 
 RUN mkdir -p /opt/infinigen
 WORKDIR /opt/infinigen
@@ -37,6 +37,7 @@ RUN conda init bash && \
         "tqdm" \
         "networkx" \
         "pyyaml" \
+        "h5py" \
         "google-cloud-storage" && \
     pip install -e ".[dev]" && \
     pip install google-cloud-storage pyyaml
