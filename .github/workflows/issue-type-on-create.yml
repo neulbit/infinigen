@@ -1,0 +1,14 @@
+name: Issue Type 자동 처리
+
+on:
+  issues:
+    types: [opened, transferred]
+
+permissions:
+  issues: write
+
+jobs:
+  handle-issue-type:
+    uses: neulbit/.github/.github/workflows/issue-type-auto.yml@1aad09a5f7c895f927fd27a401d7fb839c533715
+    permissions:
+      issues: write
